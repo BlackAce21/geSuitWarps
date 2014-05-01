@@ -1,5 +1,6 @@
 package net.cubespace.geSuitWarps.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,9 +15,11 @@ public class WarpCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command,
 			String label, String[] args) {
 		if(args.length==1){
+			Bukkit.getPlayer(sender.getName()).saveData();
 			WarpsManager.warpPlayer(sender, sender.getName(), args[0]);
 			return true;
 		}else if(args.length>1 && sender.hasPermission("gesuit.warps.command.warp.other")){
+			Bukkit.getPlayer(args[0]).saveData();
 			WarpsManager.warpPlayer(sender, args[0], args[1]);
 			return true;
 		}
